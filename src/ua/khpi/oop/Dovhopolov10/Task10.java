@@ -7,7 +7,7 @@ import ua.khpi.oop.Dovhopolov09.*;
 //Мета∗
 //	Розширення функціональності параметризованих класів.
 //Зробленно Довгополовом Даніїлом
-public class Main {
+ public class Task10 {
 	/**
 	 * Generates a linked list of randomly generated buses.
 	 * 

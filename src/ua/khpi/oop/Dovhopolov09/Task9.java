@@ -15,7 +15,7 @@ It creates a new LinkedListContainer object, adds and removes elements,
 
 clears the container, and checks if it is empty.
  */
-public class task {
+public class Task9 {
 
 	/**
 

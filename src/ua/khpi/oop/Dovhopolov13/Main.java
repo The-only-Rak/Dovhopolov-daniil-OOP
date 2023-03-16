@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Main {
 	static Integer res = 0;
 	public static void main(String[] args) throws InterruptedException {
-		Integer[] randomArray = new Integer[10000];;
+		Integer[] randomArray = new Integer[10000];
 
 		for (int i = 0; i < randomArray.length; i++) {
 			randomArray[i] = i;

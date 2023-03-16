@@ -22,7 +22,11 @@ A container class that implements a singly-linked list.
 public class LinkedListContainer<T> implements Iterable<T>, Serializable {
 	
 	
-    private ListNode<T> head;
+    /**
+	 * UID
+	 */
+	private static final long serialVersionUID = 1L;
+	private ListNode<T> head;
     private int size;
     /**
 
@@ -128,7 +132,7 @@ public class LinkedListContainer<T> implements Iterable<T>, Serializable {
         for (ListNode<T> x = head; x != null; x = x.getNext()) {
             sb.append(x.getData().toString());
             if (x.getNext() != null) {
-                sb.append(", ");
+                sb.append(",\n");
             }
         }
         sb.append("]");
