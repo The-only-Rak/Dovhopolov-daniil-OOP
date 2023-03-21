@@ -1,10 +1,5 @@
 package ua.khpi.oop.Dovhopolov11;
 import java.io.IOException;
-//Лаба 11 Регулярні вирази. Перевірка даних
-//Мета∗
-//	Ознайомлення з принципами використання регулярних виразів для перевірки рядка на відповідність шаблону.
-//Зробленно Довгополовом Даніїлом
-public class Main {
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
@@ -13,7 +8,11 @@ import java.util.regex.Pattern;
 
 import ua.khpi.oop.Dovhopolov09.*;
 import ua.khpi.oop.Dovhopolov10.*;
-public class Main {
+//Лаба 11 Регулярні вирази. Перевірка даних
+//Мета∗
+//	Ознайомлення з принципами використання регулярних виразів для перевірки рядка на відповідність шаблону.
+//Зробленно Довгополовом Даніїлом
+public class Task11 {
 	/**
 	 * Generates a linked list of randomly generated buses.
 	 * 
@@ -65,7 +64,7 @@ public class Main {
 				switch (choice) {
 				case 1:
 					System.out.print("Enter bus in form {id destination departureTime freeSeats}");
-					var str = scanner.next();
+					var str = scanner.next() + scanner.nextLine();
 					var patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
 					var mathes = patern.matcher(str);
 					if(!mathes.find())
@@ -98,11 +97,11 @@ public class Main {
 					var fileName = scanner.next();
 			        try {
 			            content = Files.readString(Paths.get(fileName));
-			            System.out.println("File content: " + content);
+			            System.out.println("File content: \n" + content);
 			        } catch (IOException e) {
 			            System.err.println("Error reading file: " + e.getMessage());
 			        }
-					var _patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)\n");
+					var _patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
 					var _mathes = _patern.matcher(content);
 					while(_mathes.find())
 					{

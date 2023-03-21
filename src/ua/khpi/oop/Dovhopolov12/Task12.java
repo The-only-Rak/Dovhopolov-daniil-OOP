@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import ua.khpi.oop.Dovhopolov09.*;
 import ua.khpi.oop.Dovhopolov10.*;
-public class Main {
+public class Task12 {
 	/**
 	 * Generates a linked list of randomly generated buses.
 	 * 
@@ -66,7 +66,7 @@ public class Main {
 				switch (choice) {
 				case 1:
 					System.out.print("Enter bus in form {id destination departureTime freeSeats}");
-					var str = scanner.next();
+					var str = scanner.next() + scanner.nextLine();
 					var patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
 					var mathes = patern.matcher(str);
 					if(!mathes.find())
@@ -116,7 +116,7 @@ public class Main {
 					System.out.println("Enter what destination should be in way {dist1-dist2-dist3 ...}");
 					var s = scanner.next();
 					var count =  Pattern.compile("-").matcher(s).results().count();
-					var pat = Pattern.compile(String.format("({})", s.trim().replaceAll("-", "|")));
+					var pat = Pattern.compile(String.format("(%s)", s.trim().replaceAll("-", "|")));
 					for (var i : buses) {
 						var res = pat.matcher(i.getDestination()).results().count() == count + 1;
 						if(res)
