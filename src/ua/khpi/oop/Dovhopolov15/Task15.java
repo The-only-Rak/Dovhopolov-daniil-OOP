@@ -1,30 +1,49 @@
-package ua.khpi.oop.Dovhopolov12;
-//Лаба 12 Регулярні вирази. Перевірка даних
-//Мета∗
-//	Ознайомлення з принципами використання регулярних виразів для обробки тексту.
-//Зробленно Довгополовом Даніїлом
+package ua.khpi.oop.Dovhopolov15;
+
 import java.io.IOException;
-//Лаба 12 Регулярні вирази. Перевірка даних
+//Лаба 15 Колекції в Java∗
 //Мета∗
-//	Ознайомлення з принципами використання регулярних виразів для обробки тексту.
+//	Ознайомлення з бібліотекою колекцій Java SE.
+//  Використання колекцій для розміщення об'єктів розроблених класів.
 //Зробленно Довгополовом Даніїлом
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import ua.khpi.oop.Dovhopolov09.*;
 import ua.khpi.oop.Dovhopolov10.*;
-public class Task12 {
+//The following Java code implements a program for a bus station. It generates and maintains a list of buses. The program allows the user to add a bus, sort the list of buses by different criteria, load a list of buses from a file, and filter the list of buses by destination.
+//
+//The program starts by defining a class named Task15. The class contains two static methods: generateBuses and main. The generateBuses method generates a list of buses by creating a specified number of random buses. The main method is the entry point for the program. It creates an empty list of buses and displays a menu of options to the user.
+//
+//The user can choose to add a bus to the list, sort the list by bus ID, sort the list by departure time, sort the list by number of free seats, load a list of buses from a file, filter the list by destination, or exit the program. The user's input is read using a Scanner object.
+//
+//When the user chooses to add a bus to the list, the program prompts the user to enter the bus information in the form "id destination departureTime freeSeats". It then parses the input using a regular expression pattern and creates a new bus object. The new bus object is added to the list of buses.
+//
+//When the user chooses to sort the list by bus ID, the program uses the Comparator.comparingInt method to sort the list by bus ID and displays the sorted list to the user.
+//
+//When the user chooses to sort the list by departure time, the program uses the Comparator.comparing method to sort the list by departure time and displays the sorted list to the user.
+//
+//When the user chooses to sort the list by number of free seats, the program uses the Comparator.comparingInt method to sort the list by number of free seats and displays the sorted list to the user.
+//
+//When the user chooses to load a list of buses from a file, the program prompts the user to enter the file name. It then reads the content of the file and parses it using a regular expression pattern. The program creates a new bus object for each line in the file that matches the pattern and adds the new bus object to the list of buses.
+//
+//When the user chooses to filter the list by destination, the program prompts the user to enter the destination criteria in the form "dist1-dist2-dist3 ...". The program uses a regular expression pattern to match each bus destination to the criteria and displays the matching buses to the user.
+//
+//Finally, when the user chooses to exit the program, the program terminates.
+public class Task15 {
 	/**
 	 * Generates a linked list of randomly generated buses.
 	 * 
 	 * @param n the number of buses to generate
 	 * @return a linked list of randomly generated buses
 	 */
-	public static LinkedListContainer<Bus> generateBuses(int n) {
-		LinkedListContainer<Bus> buses = new LinkedListContainer<>();
+	public static ArrayList<Bus> generateBuses(int n) {
+		ArrayList<Bus> buses = new ArrayList<>();
 		Random rand = new Random();
 
 		for (int i = 0; i < n; i++) {
@@ -47,7 +66,7 @@ public class Task12 {
 	public static void main(String[] args) {
 
 		// Create empty list of buses
-		LinkedListContainer<Bus> buses = new LinkedListContainer<>();
+		ArrayList<Bus> buses = new ArrayList<>();
 		if (args.length == 0)
 		{
 			Scanner scanner = new Scanner(System.in);
@@ -82,17 +101,17 @@ public class Task12 {
 					break;
 				case 2:
 					// Sort buses by id and print the sorted list
-					BusStation.sortById(buses);
+					buses.sort(Comparator.comparingInt(Bus::getId));
 					System.out.println(buses);
 					break;
 				case 3:
 					// Sort buses by departure time and print the sorted list
-					BusStation.sortByDepartureTime(buses);
+					buses.sort(Comparator.comparing(Bus::getDepartureTime));
 					System.out.println(buses);
 					break;
 				case 4:
 					// Sort buses by number of free seats and print the sorted list
-					BusStation.sortByFreeSeats(buses);
+					buses.sort(Comparator.comparingInt(Bus::getFreeSeats));
 					System.out.println(buses);
 					break;
 				case 5:
@@ -146,11 +165,10 @@ public class Task12 {
 			System.out.println("Unsorted list of buses:");
 			System.out.println(buses);
 
-			BusStation.sortById(buses);
+			buses.sort(Comparator.comparingInt(Bus::getId));
 
 			System.out.println("Sorted list of buses by id:");
 			System.out.println(buses);
 		}
 	}	
 }
-
