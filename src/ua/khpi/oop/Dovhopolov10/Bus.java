@@ -1,5 +1,8 @@
 package ua.khpi.oop.Dovhopolov10;
 
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+
 /**
 
 This class represents a Bus object.
@@ -9,7 +12,7 @@ A Bus object contains an ID, destination, departure time and number of free seat
 public class Bus {
 	private int id;
 	private String destination;
-	private String departureTime;
+	private	LocalDateTime departureTime;
 	private int freeSeats;
 
 	/**
@@ -20,11 +23,31 @@ Constructs a Bus object with the given ID, destination, departure time and numbe
 @param departureTime The departure time of the bus.
 @param freeSeats The number of free seats on the bus.
 	 */
-	public Bus(int id, String destination, String departureTime, int freeSeats) {
+	public Bus() {
+		this.id = 0;
+		this.destination = new String();
+		this.departureTime =LocalDateTime.MIN;
+		this.freeSeats = 0;
+	}
+	public Bus(int id, String destination, LocalDateTime departureTime, int freeSeats) {
 		this.id = id;
 		this.destination = destination;
 		this.departureTime = departureTime;
 		this.freeSeats = freeSeats;
+	}
+	public Bus(String str)
+	{
+		var patern = Pattern.compile("(?<id>\\d+) (?<destination>[\\S-]+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
+		var mathes = patern.matcher(str);
+		if(!mathes.find())
+		{
+			throw new IllegalArgumentException();
+		}
+		// Create new bus object and add it to the list
+		this.id = Integer.parseInt(mathes.group("id"));
+		this.destination = mathes.group("destination");
+		this.departureTime = LocalDateTime.parse(mathes.group("departureTime"));
+		this.freeSeats =  Integer.parseInt(mathes.group("freeSeats"));
 	}
 	/**
 
@@ -63,7 +86,7 @@ Sets the destination of the bus.
 Returns the departure time of the bus.
 @return The departure time of the bus.
 	 */
-	public String getDepartureTime() {
+	public LocalDateTime getDepartureTime() {
 		return departureTime;
 	}
 	/**
@@ -71,7 +94,7 @@ Returns the departure time of the bus.
 Sets the departure time of the bus.
 @param departureTime The departure time to set for the bus.
 	 */
-	public void setDepartureTime(String departureTime) {
+	public void setDepartureTime(LocalDateTime departureTime) {
 		this.departureTime = departureTime;
 	}
 	/**
@@ -100,7 +123,7 @@ Returns a string representation of the Bus object.
 		return 
 				"id= " + id +
 				", destination= " + destination + ' ' +
-				", departureTime= " + departureTime + ' ' +
+				", departureTime= " + departureTime.toString() + ' ' +
 				", freeSeats= " + freeSeats 
 				;
 	}

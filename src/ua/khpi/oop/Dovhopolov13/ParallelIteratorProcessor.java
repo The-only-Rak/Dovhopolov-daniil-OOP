@@ -1,11 +1,11 @@
 package ua.khpi.oop.Dovhopolov13;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * Класс ParallelIteratorProcessor предназначен для обработки итерируемой коллекции в многопоточном режиме.
@@ -35,10 +35,11 @@ public class ParallelIteratorProcessor<T> {
      *                 Обработчик должен быть потокобезопасным, т.е. гарантировать корректную работу при параллельном выполнении.
      * @throws InterruptedException Если задачи не удалось завершить за отведенное время.
      */
-    public void process(BiConsumer<T,Object> processor) throws InterruptedException {
+    @SuppressWarnings("unchecked")
+	public void process(BiConsumer<T,Object> processor) throws InterruptedException {
         while (iterator.hasNext()) {
-            T element = iterator.next();
-            executorService.submit(() -> processor.accept(element,lock));
+        	T tmp = iterator.next();
+            executorService.submit(() -> processor.accept(tmp,lock));
         }
         executorService.shutdown();
         if(!executorService.awaitTermination(timeoutInMillis, TimeUnit.MILLISECONDS))

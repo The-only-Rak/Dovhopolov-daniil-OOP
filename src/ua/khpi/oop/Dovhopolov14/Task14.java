@@ -1,5 +1,5 @@
 package ua.khpi.oop.Dovhopolov14;
-
+import ua.khpi.oop.Dovhopolov10.Bus;
 import java.util.Arrays;
 //Лаба 14 Multithreading. Ефективність використання
 //Мета∗
@@ -23,22 +23,31 @@ public class Task14 {
 	выполнения в процентах.
 	*/
 	public static void main(String[] args) throws InterruptedException {
-		Integer[] randomArray = new Integer[1000000];
+		Bus[] randomArray = new Bus[10000000];
 		
 		
 		for (int i = 0; i < randomArray.length; i++) {
-			randomArray[i] = i;
+			randomArray[i] = new Bus();
+			randomArray[i].setFreeSeats(i);
 		}
 		
-		ParallelSumProcessor par = new ParallelSumProcessor(Arrays.asList(randomArray).iterator(), 10000, 1000000);
+		ParallelSumProcessor par = new ParallelSumProcessor(Arrays.asList(randomArray).iterator(), 4, 1000000);
 		long t1 = System.currentTimeMillis();
 		par.sum();
 		t1 = System.currentTimeMillis() - t1;
 		long t2 = System.currentTimeMillis();
 		@SuppressWarnings("unused")
-		long res = 0;
-		for (Integer integer : randomArray) {
-			res += integer;
+		long[] res = new long[2];
+		for (Bus i : randomArray) {
+	    	var curr = i.getFreeSeats();
+	    	if (curr > res[1])
+	    	{
+					res[1] = curr;
+	    	}
+	    	if(curr < res[0])
+	    	{
+					res[1] = curr;
+	    	}
 		}
 		t2 = System.currentTimeMillis() - t2;
 		System.out.println(String.format("t1 = %d, t2 = %d, %% = %f", t1,t2, (double)t1 / t2));

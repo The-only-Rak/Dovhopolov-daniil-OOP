@@ -1,4 +1,5 @@
 package ua.khpi.oop.Dovhopolov10;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
 import ua.khpi.oop.Dovhopolov09.*;
@@ -24,7 +25,7 @@ import ua.khpi.oop.Dovhopolov09.*;
 			String departureTime = String.format("%02d:%02d", rand.nextInt(24), rand.nextInt(60));
 			int freeSeats = rand.nextInt(50);
 
-			Bus bus = new Bus(id, destination, departureTime, freeSeats);
+			Bus bus = new Bus(id, destination, LocalDateTime.parse( departureTime), freeSeats);
 			buses.add(bus);
 		}
 
@@ -67,7 +68,7 @@ import ua.khpi.oop.Dovhopolov09.*;
 					int freeSeats = scanner.nextInt();
 
 					// Create new bus object and add it to the list
-					Bus bus = new Bus(id, destination, departureTime, freeSeats);
+					Bus bus = new Bus(id, destination, LocalDateTime.parse(departureTime), freeSeats);
 					buses.add(bus);
 					break;
 				case 2:

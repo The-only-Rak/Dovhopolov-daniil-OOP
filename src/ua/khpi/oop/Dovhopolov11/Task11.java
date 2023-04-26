@@ -2,6 +2,7 @@ package ua.khpi.oop.Dovhopolov11;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -29,7 +30,7 @@ public class Task11 {
 			String departureTime = String.format("%02d:%02d", rand.nextInt(24), rand.nextInt(60));
 			int freeSeats = rand.nextInt(50);
 
-			Bus bus = new Bus(id, destination, departureTime, freeSeats);
+			Bus bus = new Bus(id, destination, LocalDateTime.parse(departureTime), freeSeats);
 			buses.add(bus);
 		}
 
@@ -65,14 +66,8 @@ public class Task11 {
 				case 1:
 					System.out.print("Enter bus in form {id destination departureTime freeSeats}");
 					var str = scanner.next() + scanner.nextLine();
-					var patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
-					var mathes = patern.matcher(str);
-					if(!mathes.find())
-					{
-						throw new IllegalArgumentException();
-					}
 					// Create new bus object and add it to the list
-					Bus bus = new Bus(Integer.parseInt(mathes.group("id")), mathes.group("destination"),mathes.group("departureTime") ,Integer.parseInt(mathes.group("freeSeats")) );
+					Bus bus = new Bus(str);
 					buses.add(bus);
 					break;
 				case 2:
@@ -105,7 +100,7 @@ public class Task11 {
 					var _mathes = _patern.matcher(content);
 					while(_mathes.find())
 					{
-						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),_mathes.group("departureTime") ,Integer.parseInt(_mathes.group("freeSeats")) );
+						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),LocalDateTime.parse(_mathes.group("departureTime")) ,Integer.parseInt(_mathes.group("freeSeats")) );
 						buses.add(_bus);
 					}
 					break;

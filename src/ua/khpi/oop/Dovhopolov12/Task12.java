@@ -10,6 +10,7 @@ import java.io.IOException;
 //Зробленно Довгополовом Даніїлом
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -33,11 +34,28 @@ public class Task12 {
 			String departureTime = String.format("%02d:%02d", rand.nextInt(24), rand.nextInt(60));
 			int freeSeats = rand.nextInt(50);
 
-			Bus bus = new Bus(id, destination, departureTime, freeSeats);
+			Bus bus = new Bus(id, destination, LocalDateTime.parse(departureTime), freeSeats);
 			buses.add(bus);
 		}
 
 		return buses;
+	}
+	 public static LinkedListContainer<String> filtrDist(String s,LinkedListContainer<Bus> buses)
+	{
+		LinkedListContainer<String> result = new LinkedListContainer<>();
+		var count =  Pattern.compile("-").matcher(s).results().count();
+		var pat = Pattern.compile(String.format("(%s)", s.trim().replaceAll("-", "|")));
+		for (var i : buses) {
+			var res = pat.matcher(i.getDestination()).results().count() >= count + 1;
+			if(res)
+			{
+				if(i.getDepartureTime().getDayOfWeek().getValue() > 5)
+				{
+					result.add(i.toString());
+				}
+			}
+		}
+		return result;
 	}
 	/**
 	 * The main method for the Bus Station program.
@@ -70,14 +88,7 @@ public class Task12 {
 				case 1:
 					System.out.print("Enter bus in form {id destination departureTime freeSeats}");
 					var str = scanner.next() + scanner.nextLine();
-					var patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
-					var mathes = patern.matcher(str);
-					if(!mathes.find())
-					{
-						throw new IllegalArgumentException();
-					}
-					// Create new bus object and add it to the list
-					Bus bus = new Bus(Integer.parseInt(mathes.group("id")), mathes.group("destination"),mathes.group("departureTime") ,Integer.parseInt(mathes.group("freeSeats")) );
+					Bus bus = new Bus(str);
 					buses.add(bus);
 					break;
 				case 2:
@@ -106,26 +117,21 @@ public class Task12 {
 			        } catch (IOException e) {
 			            System.err.println("Error reading file: " + e.getMessage());
 			        }
-					var _patern = Pattern.compile("(?<id>\\d+) (?<destination>\\S+) (?<departureTime>\\S+) (?<freeSeats>\\d+)\n");
+					var _patern = Pattern.compile("(?<id>\\d+) (?<destination>[\\S-]+) (?<departureTime>\\S+) (?<freeSeats>\\d+)\n");
 					var _mathes = _patern.matcher(content);
 					while(_mathes.find())
 					{
-						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),_mathes.group("departureTime") ,Integer.parseInt(_mathes.group("freeSeats")) );
+						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),LocalDateTime.parse(_mathes.group("departureTime")) ,Integer.parseInt(_mathes.group("freeSeats")) );
 						buses.add(_bus);
 					}
 					break;
 				case 6:
 					// Sort buses by number of free seats and print the sorted list
 					System.out.println("Enter what destination should be in way {dist1-dist2-dist3 ...}");
-					var s = scanner.next();
-					var count =  Pattern.compile("-").matcher(s).results().count();
-					var pat = Pattern.compile(String.format("(%s)", s.trim().replaceAll("-", "|")));
-					for (var i : buses) {
-						var res = pat.matcher(i.getDestination()).results().count() == count + 1;
-						if(res)
-						{
-							System.out.println(i);
-						}
+					var s = scanner.next() + scanner.nextLine();
+					var res = filtrDist(s, buses);
+					for (var i : res) {
+						System.out.println(i);
 					}
 					break;
 				case 7:

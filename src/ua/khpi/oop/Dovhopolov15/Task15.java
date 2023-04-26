@@ -8,6 +8,7 @@ import java.io.IOException;
 //Зробленно Довгополовом Даніїлом
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
@@ -52,7 +53,7 @@ public class Task15 {
 			String departureTime = String.format("%02d:%02d", rand.nextInt(24), rand.nextInt(60));
 			int freeSeats = rand.nextInt(50);
 
-			Bus bus = new Bus(id, destination, departureTime, freeSeats);
+			Bus bus = new Bus(id, destination, LocalDateTime.parse(departureTime), freeSeats);
 			buses.add(bus);
 		}
 
@@ -96,7 +97,7 @@ public class Task15 {
 						throw new IllegalArgumentException();
 					}
 					// Create new bus object and add it to the list
-					Bus bus = new Bus(Integer.parseInt(mathes.group("id")), mathes.group("destination"),mathes.group("departureTime") ,Integer.parseInt(mathes.group("freeSeats")) );
+					Bus bus = new Bus(Integer.parseInt(mathes.group("id")), mathes.group("destination"),LocalDateTime.parse(mathes.group("departureTime")) ,Integer.parseInt(mathes.group("freeSeats")) );
 					buses.add(bus);
 					break;
 				case 2:
@@ -129,7 +130,7 @@ public class Task15 {
 					var _mathes = _patern.matcher(content);
 					while(_mathes.find())
 					{
-						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),_mathes.group("departureTime") ,Integer.parseInt(_mathes.group("freeSeats")) );
+						Bus _bus = new Bus(Integer.parseInt(_mathes.group("id")), _mathes.group("destination"),LocalDateTime.parse(_mathes.group("departureTime")) ,Integer.parseInt(_mathes.group("freeSeats")) );
 						buses.add(_bus);
 					}
 					break;
