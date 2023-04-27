@@ -23,7 +23,7 @@ public class Task14 {
 	выполнения в процентах.
 	*/
 	public static void main(String[] args) throws InterruptedException {
-		Bus[] randomArray = new Bus[10000000];
+		Bus[] randomArray = new Bus[100000];
 		
 		
 		for (int i = 0; i < randomArray.length; i++) {
@@ -31,7 +31,7 @@ public class Task14 {
 			randomArray[i].setFreeSeats(i);
 		}
 		
-		ParallelSumProcessor par = new ParallelSumProcessor(Arrays.asList(randomArray).iterator(), 4, 1000000);
+		ParallelSumProcessor par = new ParallelSumProcessor(Arrays.asList(randomArray).iterator(), 16, 1000000);
 		long t1 = System.currentTimeMillis();
 		par.sum();
 		t1 = System.currentTimeMillis() - t1;

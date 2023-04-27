@@ -37,7 +37,7 @@ Constructs a Bus object with the given ID, destination, departure time and numbe
 	}
 	public Bus(String str)
 	{
-		var patern = Pattern.compile("(?<id>\\d+) (?<destination>[\\S-]+) (?<departureTime>\\S+) (?<freeSeats>\\d+)");
+		var patern = Pattern.compile("(?<id>\\S+) (?<destination>[\\S-]+) (?<departureTime>\\S+) (?<freeSeats>\\S+)");
 		var mathes = patern.matcher(str);
 		if(!mathes.find())
 		{

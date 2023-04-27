@@ -10,10 +10,11 @@ public class Task12Test {
 	@org.junit.jupiter.api.Test
 	public void Test1()
 	{
-		String s =  "1-3-9";
+		String s =  "Киев-Львов-Ужгород";
 		LinkedListContainer<Bus> buses = new LinkedListContainer<>();
 		buses.add(new Bus(0,"1-3-6-8",LocalDateTime.of(2023, 04, 29, 8, 8, 8),0));
 		buses.add(new Bus(1,"1-3-9",LocalDateTime.of(2023, 04, 29,8, 8, 8),0));
+		buses.add(new Bus(1,"Киев-Львов-Ужгород",LocalDateTime.of(2023, 04, 29,8, 8, 8),0));
 		buses.add(new Bus(2,"1-3-5-9",LocalDateTime.of(2023, 04, 29,8, 8, 8),0));
 		buses.add(new Bus(3,"1-3-8-9",LocalDateTime.of(2023, 04, 29,8, 8, 8),0));
 		buses.add(new Bus(4,"1-3-10-12-18-31-9",LocalDateTime.of(2023, 04, 29, 8, 8, 8),0));
